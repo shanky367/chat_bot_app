@@ -1,6 +1,6 @@
-package com.app.gupshup_app.repo
+package com.app.chatbot.repo
 
-import com.app.gupshup_app.model.Message
+import com.app.chatbot.model.Message
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue

@@ -1,6 +1,6 @@
-package com.app.gupshup_app.stateui
+package com.app.chatbot.stateui
 
-import com.app.gupshup_app.model.Message
+import com.app.chatbot.model.Message
 
 
 data class ChatUiState(

@@ -1,4 +1,4 @@
-package com.app.gupshup_app.ui.screen
+package com.app.chatbot.ui.screen
 
 
 import androidx.compose.foundation.layout.Arrangement
@@ -38,12 +38,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.app.gupshup_app.events.ChatEvent
-import com.app.gupshup_app.model.Message
-import com.app.gupshup_app.stateui.ChatUiState
-import com.app.gupshup_app.ui.theme.Purple40
-import com.app.gupshup_app.ui.theme.Purple80
-import com.app.gupshup_app.viewmodel.ChatViewModel
+import com.app.chatbot.events.ChatEvent
+import com.app.chatbot.model.Message
+import com.app.chatbot.stateui.ChatUiState
+import com.app.chatbot.ui.theme.Purple40
+import com.app.chatbot.ui.theme.Purple80
+import com.app.chatbot.viewmodel.ChatViewModel
 import kotlinx.datetime.Clock
 
 
@@ -69,7 +69,8 @@ fun ChatContent(
             .padding(8.dp)
     ) {
         LazyColumn(
-            modifier = Modifier .testTag("MessageList")
+            modifier = Modifier
+                .testTag("MessageList")
                 .weight(1f)
                 .fillMaxWidth(),
             reverseLayout = true
@@ -99,7 +100,8 @@ fun ChatContent(
                         unfocusedIndicatorColor = Color.White,
                         disabledIndicatorColor = Color.White,
                         errorIndicatorColor = Color.White,
-                        focusedPlaceholderColor = Color.White,
+                        focusedPlaceholderColor = Color.Black,
+                        focusedTextColor = Color.Black,
                     ),
                     value = state.inputText,
                     onValueChange = onInputChanged,

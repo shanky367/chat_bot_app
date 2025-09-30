@@ -1,7 +1,8 @@
-package com.app.gupshup_app.viewmodel
-import com.app.gupshup_app.events.ChatEvent
-import com.app.gupshup_app.model.Message
-import com.app.gupshup_app.repo.ChatRepository
+package com.app.chatbot.viewmodel
+
+import com.app.chatbot.events.ChatEvent
+import com.app.chatbot.model.Message
+import com.app.chatbot.repo.ChatRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel

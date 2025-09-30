@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.app.gupshup_app"
+    namespace = "com.app.chatbot"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.app.gupshup_app"
+        applicationId = "com.app.chatbot"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

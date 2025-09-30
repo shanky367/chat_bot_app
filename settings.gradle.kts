@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "gupshup_app"
+rootProject.name = "chatbot"
 include(":app")

@@ -1,7 +1,7 @@
-package com.app.gupshup_app.repo
+package com.app.chatbot.repo
 
 
-import com.app.gupshup_app.model.Message
+import com.app.chatbot.model.Message
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

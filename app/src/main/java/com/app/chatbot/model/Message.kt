@@ -1,4 +1,4 @@
-package com.app.gupshup_app.model
+package com.app.chatbot.model
 
 import kotlinx.datetime.Clock
 

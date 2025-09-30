@@ -1,4 +1,4 @@
-package com.app.gupshup_app.ui.theme
+package com.app.chatbot.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

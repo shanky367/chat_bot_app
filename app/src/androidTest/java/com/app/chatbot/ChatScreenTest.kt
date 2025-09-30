@@ -1,4 +1,4 @@
-package com.app.gupshup_app
+package com.app.chatbot
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,9 +12,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import com.app.gupshup_app.model.Message
-import com.app.gupshup_app.stateui.ChatUiState
-import com.app.gupshup_app.ui.screen.ChatContent
+import com.app.chatbot.model.Message
+import com.app.chatbot.stateui.ChatUiState
+import com.app.chatbot.ui.screen.ChatContent
 import org.junit.Rule
 import org.junit.Test
 

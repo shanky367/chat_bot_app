@@ -1,4 +1,4 @@
-package com.app.gupshup_app
+package com.app.chatbot
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,11 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.app.gupshup_app.di.appModule
-import com.app.gupshup_app.ui.screen.ChatScreen
-import com.app.gupshup_app.ui.screen.CustomTopBar
-import com.app.gupshup_app.ui.theme.Gupshup_appTheme
-import com.app.gupshup_app.viewmodel.ChatViewModel
+import com.app.chatbot.di.appModule
+import com.app.chatbot.ui.screen.ChatScreen
+import com.app.chatbot.ui.screen.CustomTopBar
+import com.app.chatbot.ui.theme.Gupshup_appTheme
+import com.app.chatbot.viewmodel.ChatViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.context.startKoin

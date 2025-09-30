@@ -1,4 +1,4 @@
-package com.app.gupshup_app.ui.theme
+package com.app.chatbot.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

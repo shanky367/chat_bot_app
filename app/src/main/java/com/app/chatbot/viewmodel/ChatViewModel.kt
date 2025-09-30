@@ -1,10 +1,10 @@
-package com.app.gupshup_app.viewmodel
+package com.app.chatbot.viewmodel
 
 
 import androidx.lifecycle.ViewModel
-import com.app.gupshup_app.events.ChatEvent
-import com.app.gupshup_app.repo.ChatRepository
-import com.app.gupshup_app.stateui.ChatUiState
+import com.app.chatbot.events.ChatEvent
+import com.app.chatbot.repo.ChatRepository
+import com.app.chatbot.stateui.ChatUiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
