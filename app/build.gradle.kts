@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.testImplementation
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -110,6 +108,8 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         include("*.exec") // Look for any .exec file in this directory
     })
 }
+
+
 
 dependencies {
    // Core Android
