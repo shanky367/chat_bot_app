@@ -48,12 +48,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Set up Android Emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30 # You can choose an appropriate API level
-          script: echo "Emulator setup complete"
-
       - name: Run Android Instrumented Tests
         run: ./gradlew :app:connectedDebugAndroidTest
 
