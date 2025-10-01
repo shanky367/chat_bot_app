@@ -128,3 +128,10 @@ example:)*
 * **Screenshot 4: Response Received**
   *(Image of the chat screen showing the simulated response below the user's message)*
   ![img_3.png](img_3.png)
+  
+## Test case screenshots
+<img width="757" height="564" alt="Screenshot 2025-10-01 at 12 58 03 AM" src="https://github.com/user-attachments/assets/18c872fc-0c4f-4375-8198-ca737f229e80" />
+<img width="1110" height="728" alt="Screenshot 2025-10-01 at 1 01 42 AM" src="https://github.com/user-attachments/assets/14330c5d-0ea0-4860-bae9-874051936c66" />
+<img width="684" height="488" alt="Screenshot 2025-10-01 at 1 00 31 AM" src="https://github.com/user-attachments/assets/68c034ab-a481-4742-9f1e-19fbce06077c" />
+
+
