@@ -16,6 +16,15 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
+/**
+ * ViewModel for the Chat screen.
+ *
+ * This ViewModel is responsible for managing the UI state of the chat screen and handling user interactions.
+ * It interacts with the [ChatRepository] to send and receive messages.
+ *
+ * @param repository The [ChatRepository] used to interact with the chat data source.
+ * @param replyDelayMs The delay in milliseconds for simulating a reply. This is parameterized for testing purposes.
+ */
 open class ChatViewModel(
     private val repository: ChatRepository,
     private val replyDelayMs: Long = 5000L, // parameterized for tests
@@ -34,11 +43,28 @@ open class ChatViewModel(
         // Observe repository messages and map into UI state
         initializeMessageCollection()
     }
+
+    /**
+     * Sets the [CoroutineScope] to be used for testing.
+     * This allows for controlling the execution of coroutines in tests.
+     * After setting the scope, it re-initializes the message collection
+     * to ensure the new scope is used for observing repository messages.
+     *
+     * @param scope The [CoroutineScope] to be used for testing.
+     */
     fun setTestScope(scope: CoroutineScope) {
         testScope = scope
         initializeMessageCollection()
     }
 
+    /**
+     * Initializes the collection of messages from the repository.
+     *
+     * This function launches a coroutine in the `viewModelScope` to observe the `messages` Flow
+     * from the `repository`. Whenever new messages are emitted, it updates the `chatIiState`
+     * with the new messages and sets `isSending` to false, indicating that no message is currently
+     * being sent.
+     */
     private fun initializeMessageCollection() {
         // Observe repository messages and map into UI state
         repoCollector = viewModelScope.launch {
@@ -48,6 +74,17 @@ open class ChatViewModel(
         }
     }
 
+    /**
+     * Submits a chat event to be processed by the ViewModel.
+     *
+     * This function handles different types of chat events:
+     * - [ChatEvent.InputChanged]: Updates the input text in the UI state.
+     * - [ChatEvent.SendClicked]: Sends the current input text as an outgoing message,
+     *   clears the input field, and simulates a reply from the repository.
+     * - [ChatEvent.NewMessages]: Updates the list of messages in the UI state.
+     *
+     * @param event The [ChatEvent] to be processed.
+     */
     fun submitEvent(event: ChatEvent) {
         when (event) {
             is ChatEvent.InputChanged -> {

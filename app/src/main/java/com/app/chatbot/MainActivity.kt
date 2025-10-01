@@ -19,6 +19,12 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.core.context.startKoin
 
 
+/**
+ * The main activity of the application.
+ *
+ * This activity is responsible for setting up the Koin dependency injection framework,
+ * enabling edge-to-edge display, and setting the content view to the chat screen.
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

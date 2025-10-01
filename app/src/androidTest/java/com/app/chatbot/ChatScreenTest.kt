@@ -18,11 +18,21 @@ import com.app.chatbot.ui.screen.ChatContent
 import org.junit.Rule
 import org.junit.Test
 
+/**
+ * Test class for the ChatScreen composable.
+ * This class contains UI tests to verify the functionality of the chat screen,
+ * including input field behavior, send button states, and message display.
+ */
 class ChatScreenTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    /**
+     * Tests that the input field accepts text input and updates the UI state accordingly.
+     * It sets up the ChatContent with an initial empty state, simulates typing "Hi" into the input field,
+     * and then asserts that the input field's displayed text matches the typed text.
+     */
     @Test
     fun inputField_acceptsText() {
         var uiState by mutableStateOf(ChatUiState(
@@ -48,6 +58,11 @@ class ChatScreenTest {
             .assert(hasText(inputText))
     }
 
+    /**
+     * Tests that the send button is clickable when it is enabled (i.e., when inputText is not empty and isSending is false).
+     * It sets an initial state where the send button should be enabled, then simulates a click on the button.
+     * Finally, it asserts that the onSend callback was triggered.
+     */
     @Test
     fun sendButton_clickableWhenEnabled() {
         var clicked = false
@@ -73,6 +88,13 @@ class ChatScreenTest {
         assert(clicked) { "Send button should trigger onSend()" }
     }
 
+    /**
+     * Test case to verify that the SendButton is disabled when the `isSending` state is true.
+     *
+     * This test sets up the [ChatContent] with an initial state where `isSending` is true.
+     * It then asserts that the SendButton exists and is displayed, but is not enabled,
+     * reflecting the behavior that users cannot send a new message while a previous one is still being processed.
+     */
     @Test
     fun sendButton_disabledWhenSending() {
          val initialState = ChatUiState(
@@ -94,6 +116,11 @@ class ChatScreenTest {
             .assertIsNotEnabled()
     }
 
+    /**
+     * Tests that the messages list correctly displays the messages provided in the UI state.
+     * It sets up the UI with a predefined list of messages and then asserts that
+     * each message text is visible on the screen.
+     */
     @Test
     fun messagesList_displaysMessages() {
         val messages = listOf(
@@ -118,6 +145,15 @@ class ChatScreenTest {
         composeTestRule.onNodeWithText("Hi!").assertIsDisplayed()
     }
 
+    /**
+     * Tests the interaction between the input field and the send button.
+     * It verifies that text typed into the input field updates the UI state correctly.
+     *
+     * Steps:
+     * 1. Sets up the [ChatContent] with an initial empty [ChatUiState].
+     * 2. Simulates typing text into the "InputField".
+     * 3. Asserts that the `inputText` in the `uiState` is updated to match the typed text.
+     */
     @Test
     fun inputField_and_sendButton_workTogether() {
         var uiState by mutableStateOf(ChatUiState(

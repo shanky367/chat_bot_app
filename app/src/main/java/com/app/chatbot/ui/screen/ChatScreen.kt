@@ -47,6 +47,12 @@ import com.app.chatbot.viewmodel.ChatViewModel
 import kotlinx.datetime.Clock
 
 
+/**
+ * Composable function that represents the main chat screen.
+ * It observes the UI state from the [viewModel] and displays the chat content.
+ *
+ * @param viewModel The [ChatViewModel] that holds the chat logic and state.
+ */
 @Composable
 fun ChatScreen(viewModel: ChatViewModel) {
     val state by viewModel.uiState.collectAsState()
@@ -171,7 +177,6 @@ fun MessageRow(msg: Message) {
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

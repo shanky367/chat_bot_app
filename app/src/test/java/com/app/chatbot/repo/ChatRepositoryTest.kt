@@ -12,9 +12,25 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 
+/**
+ * Unit tests for the [ChatRepository] class.
+ *
+ * This test class verifies the core functionalities of the [ChatRepository],
+ * including message creation (outgoing and incoming), ID generation,
+ * message flow updates, reply simulation, clearing messages, and handling
+ * various edge cases like empty, long, or special character messages.
+ *
+ * It utilizes [kotlinx.coroutines.test.runTest] for testing coroutine-based
+ * functionalities and ensures proper synchronization and state management.
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class ChatRepositoryTest {
 
+    /**
+     * Verifies that when a ChatRepository is initialized,
+     * its `messages` StateFlow initially contains an empty list.
+     * This ensures that there are no pre-existing messages upon repository creation.
+     */
     @Test
     fun initial_state_should_have_empty_messages_list() = runTest {
         // Given
@@ -25,6 +41,13 @@ class ChatRepositoryTest {
         assertTrue(initialMessages.isEmpty())
     }
 
+    /**
+     * Tests that sending an outgoing message:
+     * 1. Creates a message with the correct text.
+     * 2. Sets the `isIncoming` flag to false.
+     * 3. Assigns an ID of 1L for the first message.
+     * 4. Adds the message to the `messages` StateFlow.
+     */
     @Test
     fun sendOutgoing_should_create_outgoing_message_with_incremented_id() = runTest {
         // Given
@@ -45,6 +68,14 @@ class ChatRepositoryTest {
         assertEquals(message, messages.first())
     }
 
+    /**
+     * Tests that `pushIncoming` creates a new incoming message.
+     * It verifies that the created message:
+     * - Has an ID of 1 (as it's the first message).
+     * - Contains the correct text.
+     * - Is marked as incoming.
+     * It also checks that the message is correctly added to the `messages` StateFlow.
+     */
     @Test
     fun pushIncoming_should_create_incoming_message_with_incremented_id() = runTest {
         // Given
@@ -65,6 +96,12 @@ class ChatRepositoryTest {
         assertEquals(message, messages.first())
     }
 
+    /**
+     * Tests that multiple messages, both outgoing and incoming, are assigned sequential IDs.
+     * It sends an outgoing message, then an incoming message, then another outgoing message,
+     * and verifies that their IDs are 1, 2, and 3 respectively.
+     * It also checks that the total number of messages in the repository is 3.
+     */
     @Test
     fun multiple_messages_should_have_sequential_ids() = runTest {
         // Given
@@ -84,6 +121,14 @@ class ChatRepositoryTest {
         assertEquals(3, messages.size)
     }
 
+    /**
+     * Tests that the `messages` Flow emits updates correctly when new messages are added.
+     * It verifies:
+     * 1. The initial emission is an empty list.
+     * 2. After sending an outgoing message, the flow emits a list containing that message.
+     * 3. After pushing an incoming message, the flow emits an updated list containing both messages.
+     * The order of messages in the flow emissions is also checked.
+     */
     @Test
     fun messages_flow_should_emit_updates_when_messages_are_added() = runTest {
         // Given
@@ -120,6 +165,16 @@ class ChatRepositoryTest {
         job.cancel()
     }
 
+    /**
+     * Tests that `simulateReplyFor` correctly adds an incoming message after the specified delay.
+     *
+     * This test verifies:
+     * - The returned message is marked as incoming (`isIncoming` is true).
+     * - The message text matches the input `replyText`.
+     * - The message ID is correctly assigned (starts from 1).
+     * - The function execution time is at least the specified `delayMs`, indicating the delay occurred.
+     * - The new message is present in the `messages` flow.
+     */
     @Test
     fun simulateReplyFor_should_add_incoming_message_after_delay() = runTest {
         // Given
@@ -146,6 +201,13 @@ class ChatRepositoryTest {
         assertEquals(message, messages.first())
     }
 
+    /**
+     * Tests that `simulateReplyFor` uses the default delay (3000ms) when no specific delay is provided.
+     * It sends a reply and verifies that:
+     * 1. The message is marked as incoming.
+     * 2. The message text is correct.
+     * 3. The time elapsed between starting the simulation and receiving the message is at least the default delay.
+     */
     @Test
     fun simulateReplyFor_should_use_default_delay_when_not_specified() = runTest {
         // Given
@@ -165,6 +227,14 @@ class ChatRepositoryTest {
         assertTrue(endTime - startTime >= 3000L)
     }
 
+    /**
+     * Tests that the `clear()` method correctly resets the repository.
+     * It first adds a few messages to the repository and verifies their presence.
+     * Then, it calls `clear()` and checks:
+     * 1. The `messages` StateFlow becomes empty.
+     * 2. The internal ID counter is reset, meaning a new message sent after clearing
+     *    will have an ID of 1.
+     */
     @Test
     fun clear_should_reset_messages_and_id_counter() = runTest {
         // Given
@@ -189,6 +259,12 @@ class ChatRepositoryTest {
         assertEquals(1L, newMessage.id) // Should start from 1 again
     }
 
+    /**
+     * Tests that messages, when added to the repository (both outgoing and incoming),
+     * maintain their order of addition in the `messages` StateFlow.
+     * It adds an outgoing, then an incoming, then another outgoing message,
+     * and verifies that the `messages` list reflects this exact order.
+     */
     @Test
     fun messages_should_maintain_order_when_added() = runTest {
         // Given
@@ -207,6 +283,17 @@ class ChatRepositoryTest {
         assertEquals(msg3, messages[2])
     }
 
+    /**
+     * Tests the thread safety of the repository when adding messages concurrently.
+     * It launches a large number of coroutines, each adding either an outgoing or
+     * an incoming message.
+     *
+     * It verifies that:
+     * 1. The total number of messages in the repository matches the number of
+     *    coroutines launched.
+     * 2. All message IDs are unique, ensuring that the ID generation and message
+     *    addition process is atomic and correctly synchronized across multiple threads.
+     */
     @Test
     fun concurrent_message_additions_should_maintain_thread_safety() = runTest {
         // Given
@@ -236,6 +323,11 @@ class ChatRepositoryTest {
         assertEquals(numberOfConcurrentMessages, ids.size)
     }
 
+    /**
+     * Tests that sending and receiving empty text messages are handled correctly.
+     * It verifies that the message text is empty, the `isIncoming` flag is set correctly,
+     * and the messages are added to the repository's message list.
+     */
     @Test
     fun empty_text_messages_should_be_handled_correctly() = runTest {
         // Given
@@ -254,6 +346,11 @@ class ChatRepositoryTest {
         assertEquals(2, repository.messages.value.size)
     }
 
+    /**
+     * Tests that the repository correctly handles sending messages with very long text content.
+     * It verifies that the message text is preserved, the length is correct,
+     * and the message is added to the repository.
+     */
     @Test
     fun very_long_text_messages_should_be_handled_correctly() = runTest {
         // Given
@@ -269,6 +366,13 @@ class ChatRepositoryTest {
         assertEquals(1, repository.messages.value.size)
     }
 
+    /**
+     * Tests that special characters, including emojis and symbols, are correctly preserved
+     * when creating incoming messages.
+     * It sends an incoming message containing various special characters and verifies that
+     * the text of the created message and the text of the message stored in the repository
+     * are identical to the original input string.
+     */
     @Test
     fun special_characters_in_messages_should_be_preserved() = runTest {
         // Given
